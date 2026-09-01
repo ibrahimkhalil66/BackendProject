@@ -6,7 +6,7 @@ const { getBookById , getAllBooks} = require("../controllers/bookController");
 
 booksRouter.get("/", getAllBooks);
 
-booksRouter.get("/:booksId", getAllBooks);
+booksRouter.get("/:booksId", getBookById);
 
 
 module.exports = booksRouter;
