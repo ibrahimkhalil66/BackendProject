@@ -1,11 +1,11 @@
 const db = require("../db.js");
 const CustomNotFoundError = require("../errors/CustomNotFoundError.js");
 
-async function getBookById(res, req) {
+async function getBookById(req, res) {
   const { bookId } = req.params;
 
   try {
-    const book = await db.getBookById(bookId);
+    const book = await db.getBookById(Number(bookId));
 
     if (!book) {
       throw new CustomNotFoundError("Book Not Found");
@@ -18,7 +18,7 @@ async function getBookById(res, req) {
   }
 }
 
-async function getAllBooks() {
+async function getAllBooks(req,res) {
   try {
     const books = await db.getAllBooks();
 
@@ -33,4 +33,22 @@ async function getAllBooks() {
   }
 }
 
-module.exports = { getBookById, getAllBooks }
+async function postBook(req, res) {
+  const body = req.body;
+  try {
+    
+    if(!body) {
+      throw new CustomNotFoundError("Enter Book Name")
+    }
+
+    const isAdded = await db.postBook(body.name);
+
+    res.send(isAdded);
+
+  } catch (error) {
+    console.error("Error Post the book:", error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
+module.exports = { getBookById, getAllBooks, postBook };

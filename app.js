@@ -8,9 +8,6 @@ app.use("/authors", authorRouter);
 app.use("/books", booksRouter);
 app.use("/", indexRouter);
 
-
-
-
 const PORT = 3000;
 app.listen(PORT, (error) => {
     if(error) {

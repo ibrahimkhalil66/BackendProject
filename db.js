@@ -9,6 +9,13 @@ const books = [
     { id: 3, name: "Learn Js" },
 ];
 
+const generateId = () => {
+  const maxId = books.length > 0
+    ? Math.max(...books.map(n => Number(n.id)))
+    : 0
+  return String(maxId + 1)
+}
+
 
 async function getAuthorById(authorId) {
     return authors.find(a => a.id === authorId);
@@ -23,5 +30,15 @@ async function getBookById(bookId) {
 async function getAllBooks() {
     return books;
 }
+async function postBook(bookName) {
+    const book = {
+        id : generateId(),
+        name : bookName
+    }
 
-module.exports = { getAuthorById, getAllAuthors, getBookById, getAllBooks }
+    books.concat(book);
+
+    return books;
+}
+
+module.exports = { getAuthorById, getAllAuthors, getBookById, getAllBooks, postBook }

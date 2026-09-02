@@ -1,4 +1,4 @@
-class CustomNotFoundError extends error {
+class CustomNotFoundError extends Error {
   constructor(message) {
     super(message);
     this.statusCode = "404";
